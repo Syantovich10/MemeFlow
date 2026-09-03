@@ -10,7 +10,7 @@ export const searchCategories = [
 
 export const videoPlatforms = [
   { id: "youtube", label: "YouTube", description: "Shorts", available: true },
-  { id: "tiktok", label: "TikTok", description: null, available: false },
+  { id: "tiktok", label: "TikTok", description: null, available: true },
   { id: "instagram", label: "Instagram", description: null, available: false },
 ] as const
 
@@ -24,3 +24,7 @@ export const popularSearches = [
 
 export type SearchCategoryId = (typeof searchCategories)[number]["id"]
 export type VideoPlatformId = (typeof videoPlatforms)[number]["id"]
+
+
+
+

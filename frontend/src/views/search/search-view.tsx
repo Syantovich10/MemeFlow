@@ -1,5 +1,5 @@
-import { SearchResults } from "@/views/search/search-states"
 import { SiteHeader } from "@/components/Layout/SiteHeader/SiteHeader"
+import { SearchResults } from "@/views/search/SearchResults"
 
 export function SearchView() {
   return (

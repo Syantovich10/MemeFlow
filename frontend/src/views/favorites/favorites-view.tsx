@@ -1,5 +1,5 @@
-import { FavoritesGrid } from "@/views/favorites/favorites-states"
 import { SiteHeader } from "@/components/Layout/SiteHeader/SiteHeader"
+import { FavoritesGrid } from "@/views/favorites/FavoritesGrid"
 
 export function FavoritesView() {
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { Providers } from "./providers"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -7,10 +8,16 @@ export const metadata: Metadata = {
   description: "Find memorable short videos by meaning, context, and creator.",
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+                                     children,
+                                   }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full">
-      <body className="min-h-full">{children}</body>
-    </html>
+      <html lang="en" className="h-full">
+      <body className="min-h-full">
+      <Providers>
+        {children}
+      </Providers>
+      </body>
+      </html>
   )
 }

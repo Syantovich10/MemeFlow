@@ -1,44 +1,42 @@
-import { VideoSearchItem } from "@/types/api";
-import { YouTubeSearchResponse } from "@/types/apiResponse";
-import { transformResponse } from "@/lib/transformResponse";
-
-type SearchVideosParams = {
-    query: string;
-    maxResults?: number;
+type RequestOptions = Omit<RequestInit, "body"> & {
+    params?: Record<string, string | number | boolean | undefined | null>;
+    body?: unknown;
 };
 
-const API_KEY: string | undefined = process.env.NEXT_API_KEY;
-const BASE_URL: string | undefined  = process.env.NEXT_BASE_URL;
+const BASE_URL = process.env.NEXT_API_URL ?? "http://localhost:5000/api";
 
-export const fetchVideos = async (
-    {
-        query,
-        maxResults = 10,
-    }: SearchVideosParams): Promise<VideoSearchItem[]> => {
+export const fetchBaseQuery = async <T>(
+    endpoint: string,
+    options: RequestOptions = {}
+): Promise<T> => {
+    const { params, body, headers, ...rest } = options;
 
-    if (!API_KEY || !BASE_URL) {
-        throw new Error("YouTube API env variables are missing");
+    const url = new URL(`${BASE_URL}${endpoint}`);
+
+    if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) {
+                url.searchParams.set(key, String(value));
+            }
+        });
     }
 
-    const params = new URLSearchParams({
-        part: "snippet",
-        type: "video",
-        q: query,
-        maxResults: String(maxResults),
-        key: API_KEY,
+    const response = await fetch(url, {
+        ...rest,
+
+        headers: {
+            "Content-Type": "application/json",
+            ...headers,
+        },
+
+        body: body !== undefined
+            ? JSON.stringify(body)
+            : undefined,
     });
 
-    const response = await fetch(
-        `${BASE_URL}/search?${params.toString()}`,
-    );
-
     if (!response.ok) {
-        throw new Error(
-            `YouTube API error: ${response.status} ${response.statusText}`,
-        );
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    const json: YouTubeSearchResponse = await response.json();
-
-    return transformResponse(json);
+    return response.json() as Promise<T>;
 };
