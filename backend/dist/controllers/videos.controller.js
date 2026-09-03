@@ -4,11 +4,20 @@ exports.videoController = void 0;
 const videos_service_1 = require("../services/videos.service");
 exports.videoController = {
     search: async (req, res) => {
-        const query = String(req.query.query ?? "");
-        if (typeof req.query.maxResults === "number") {
-            return res.status(400).json({ error: "Max results must be number" });
+        const query = typeof req.query.query === "string"
+            ? req.query.query.trim()
+            : "";
+        const rawMaxResults = req.query.maxResults;
+        const maxResults = rawMaxResults === undefined
+            ? 10
+            : Number(rawMaxResults);
+        if (!Number.isInteger(maxResults) ||
+            maxResults < 1 ||
+            maxResults > 50) {
+            return res.status(400).json({
+                error: "maxResults must be an integer from 1 to 50",
+            });
         }
-        const maxResults = Number(req.query.maxResults ?? 10);
         if (!query) {
             res.status(400).json({ error: "Query parameter is required" });
             return;

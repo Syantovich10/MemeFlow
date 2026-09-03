@@ -13,4 +13,7 @@ app.use((0, cors_1.default)({
 }));
 app.use("/api", api_routes_1.default);
 app.use("/video", video_routes_1.default);
+app.use((_req, res) => {
+    res.status(404).json({ error: "Not Found" });
+});
 exports.default = app;
