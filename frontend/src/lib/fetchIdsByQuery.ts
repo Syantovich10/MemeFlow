@@ -11,9 +11,7 @@ const API_KEY = process.env.YOUTUBE_API_KEY;
 const BASE_URL  = process.env.YOUTUBE_BASE_URL;
 
 console.log(API_KEY, BASE_URL);
-// const API_KEY: string | undefined = "AIzaSyCqwqRlzqNPAotET_asqCdoXJi1fuCpdWg";
-// const BASE_URL: string | undefined  = "https://www.googleapis.com/youtube/v3";
-// console.log(BASE_URL, API_KEY);
+
 
 export const fetchIdsByQuery = async (
     {

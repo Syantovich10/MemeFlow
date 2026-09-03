@@ -4,3 +4,5 @@ import { videoController } from "../controllers/videos.controller"
 const router = Router();
 
 router.get("/search", videoController.search);
+
+export default router;
