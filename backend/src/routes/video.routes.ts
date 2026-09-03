@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { searchVideos } from ""
+import { videoController } from "../controllers/videos.controller"
 
 const router = Router();
 
-router.get("/search")
+router.get("/search", videoController.search);
