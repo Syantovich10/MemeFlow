@@ -8,14 +8,17 @@ export const metadata: Metadata = {
   description: "Find memorable short videos by meaning, context, and creator.",
 }
 
-export default function RootLayout({
-                                     children,
-                                   }: LayoutProps<"/">) {
+export default function RootLayout(
+    {
+        children,
+        modal
+    }: LayoutProps<"/">) {
   return (
       <html lang="en" className="h-full">
       <body className="min-h-full">
       <Providers>
         {children}
+          {modal}
       </Providers>
       </body>
       </html>

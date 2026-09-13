@@ -30,6 +30,8 @@ export function VideoCard({
 
   const compact = variant === "favorite";
 
+  console.log(video.id)
+
   return (
     <Card
       size="sm"
@@ -39,7 +41,7 @@ export function VideoCard({
       )}
     >
 
-      <Link href={video?.url ?? ''}>
+      <Link href={`/video?videoId=${encodeURIComponent(video.id)}`}>
         <div className={cn("relative overflow-hidden", compact ? "aspect-[4/3]" : "aspect-[3/4]") }>
           <Image
               src={video.image}
