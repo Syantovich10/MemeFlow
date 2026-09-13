@@ -4,6 +4,7 @@ exports.transformYoutubeVideos = transformYoutubeVideos;
 function transformYoutubeVideos(items) {
     return items.map((video) => ({
         id: video.id,
+        url: `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`,
         title: video.snippet.title,
         creator: video.snippet.channelTitle,
         image: video.snippet.thumbnails.maxres?.url ??

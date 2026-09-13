@@ -3,7 +3,7 @@ type RequestOptions = Omit<RequestInit, "body"> & {
     body?: unknown;
 };
 
-const BASE_URL = process.env.NEXT_API_URL ?? "http://localhost:5000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL ?? "http://localhost:5000/api";
 
 export const fetchBaseQuery = async <T>(
     endpoint: string,

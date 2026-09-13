@@ -1,52 +1,42 @@
-import { VideoSearchItem } from "@/types/api";
-import { YouTubeSearchResponse } from "@/types/apiResponse";
-import { transformResponse } from "@/lib/transformResponse";
+import type { VideoSearchResult } from "@/types/api";
 
 type SearchVideosParams = {
     query: string;
     maxResults?: number;
 };
 
-const API_KEY = process.env.YOUTUBE_API_KEY;
-const BASE_URL  = process.env.YOUTUBE_BASE_URL;
-
-console.log(API_KEY, BASE_URL);
+const BASE_URL = process.env.NEXT_PUBLIC_YOUTUBE_BASE_URL;
 
 
 export const fetchIdsByQuery = async (
     {
         query,
         maxResults = 10,
-    }: SearchVideosParams): Promise<VideoSearchItem[]> => {
+    }: SearchVideosParams): Promise<VideoSearchResult[]> => {
 
-    if (!API_KEY || !BASE_URL) {
-        throw new Error("YouTube API env variables are missing");
+    if (!BASE_URL) {
+        throw new Error("NEXT_PUBLIC_YOUTUBE_BASE_URL is missing");
     }
 
     const params = new URLSearchParams({
-        part: "snippet",
-        type: "video",
-        q: query,
+        query,
         maxResults: String(maxResults),
-
-        order: "relevance",
-        videoDuration: "short",
-
-        key: API_KEY,
     });
 
     const response = await fetch(
-        `${BASE_URL}/search?${params.toString()}`,
+        `${BASE_URL.replace(/\/$/, "")}/search?${params.toString()}`,
     );
 
     if (!response.ok) {
         throw new Error(
-            `YouTube API error: ${response.status} ${response.statusText}`,
+            `Video search API error: ${response.status} ${response.statusText}`,
         );
     }
 
-    const json: YouTubeSearchResponse = await response.json();
+    const json: { videos: VideoSearchResult[] } = await response.json();
 
 
-    return transformResponse(json);
+    return json.videos;
 };
+
+

@@ -9,7 +9,7 @@ const api_routes_1 = __importDefault(require("./routes/api.routes"));
 const video_routes_1 = __importDefault(require("./routes/video.routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://192.168.100.9:3000"],
 }));
 app.use("/api", api_routes_1.default);
 app.use("/video", video_routes_1.default);

@@ -6,6 +6,7 @@ export function transformYoutubeVideos(
 ): Video[] {
     return items.map((video) => ({
         id: video.id,
+        url: `https://www.youtube.com/watch?v=${encodeURIComponent(video.id)}`,
 
         title: video.snippet.title,
 
