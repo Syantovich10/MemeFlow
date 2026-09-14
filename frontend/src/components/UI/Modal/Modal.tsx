@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { ArrowLeft, X } from "lucide-react";
 import { Button } from "@/components/UI/Button/Button";
+import { useEffect } from "react";
 
 type ModalProps = {
     children: ReactNode;
@@ -11,6 +12,18 @@ type ModalProps = {
 
 export function Modal({ children }: ModalProps) {
     const router = useRouter();
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                router.back();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown); // Очистка
+    }, [router]);
+
 
     return (
         <div

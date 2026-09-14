@@ -1,6 +1,10 @@
 import { CircleAlert } from "lucide-react"
 
-function Error({ className, ...props }: React.ComponentProps<"div">) {
+interface ErrorProps extends React.ComponentPropsWithoutRef<"div"> {
+    errorMessage?: string
+}
+
+function Error({ className, errorMessage, ...props }: ErrorProps) {
   return (
     <div
       role="alert"
@@ -17,7 +21,7 @@ function Error({ className, ...props }: React.ComponentProps<"div">) {
         aria-hidden="true"
         className="size-4 shrink-0 drop-shadow-[0_0_6px_color-mix(in_oklch,var(--destructive)_55%,transparent)]"
       />
-      <span>Ошибка загрузки</span>
+      <span>{errorMessage ? errorMessage : null}</span>
     </div>
   )
 }

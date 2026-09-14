@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/UI/Card/Card"
-import { cn, transformVideoDuration } from "@/lib/utils"
+import { cn, transformVideoDuration, transformViews } from "@/lib/utils"
 
 
 export function VideoCard({
@@ -67,7 +67,7 @@ export function VideoCard({
               <CardHeader className="absolute inset-x-0 bottom-0 gap-1 px-3 pb-3">
                 <CardTitle className="line-clamp-2 text-sm leading-snug">{video.title}</CardTitle>
                 <CardDescription className="text-xs">{video.creator}</CardDescription>
-                <CardDescription className="text-[11px]">{video.views}</CardDescription>
+                <CardDescription className="text-[11px]">{transformViews(video.views)}</CardDescription>
               </CardHeader>
           ) : null}
         </div>
@@ -76,7 +76,7 @@ export function VideoCard({
               <CardContent className="flex flex-col gap-1.5 px-3 pt-2.5">
                 <CardTitle className="line-clamp-2 min-h-9 text-sm leading-snug">{video.title}</CardTitle>
                 <CardDescription className="text-xs">{video.creator} <span className="text-primary">●</span></CardDescription>
-                <CardDescription className="text-xs">{video.views}</CardDescription>
+                <CardDescription className="text-xs">{transformViews(video.views)}</CardDescription>
               </CardContent>
               <CardFooter className="gap-2 px-3 pb-3 pt-2 text-xs text-muted-foreground">
                 <Video className="text-red-500" aria-hidden="true" />
